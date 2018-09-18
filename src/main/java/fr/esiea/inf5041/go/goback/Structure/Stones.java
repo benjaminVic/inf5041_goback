@@ -54,9 +54,9 @@ public class Stones implements I_Token {
      * @throws IllegalArgumentException
      */
     public void removeStone() throws IllegalArgumentException {
-        if (this.color == Color.WHITE
-                || this.color == Color.BLACK) {
-            this.setColor(Color.EMPTY);
+        if (this.color == Stones.Color.WHITE
+                || this.color == Stones.Color.BLACK) {
+            this.setColor(Stones.Color.EMPTY);
         } else {
             throw new IllegalArgumentException();
         }
