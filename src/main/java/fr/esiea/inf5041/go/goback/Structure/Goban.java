@@ -41,26 +41,26 @@ public class Goban implements I_Board {
      * @param size : Lenght of the sides of the board
      */
     public Goban (int size) {
-        this.sideSize = size+2;
+        this.sideSize = size+borderLenght+borderLenght;
         matrix = new Stones[sideSize][sideSize];
-        int length;
-        int width;
-        for (length = borderLenght ; length < (size - borderLenght) ; length++) {
-            for (width = borderLenght ; width < (size - borderLenght) ; width++) {
+        int length = 0;
+        int width = 0;
+        for (length = borderLenght ; length < (sideSize - borderLenght) ; length++) {
+            for (width = borderLenght ; width < (sideSize - borderLenght) ; width++) {
                 matrix[length][width] = new Stones(Stones.Color.EMPTY);
             }
         }
 
         //Left and right out of board
-        for (length = 0; length < size ; length++) {
+        for (length = 0; length < sideSize ; length++) {
             matrix[length][0] = new Stones(Stones.Color.OUTOFBOARD);
-            matrix[length][size-1] = new Stones(Stones.Color.OUTOFBOARD);
+            matrix[length][sideSize-1] = new Stones(Stones.Color.OUTOFBOARD);
         }
 
         //Top and bottom out of board
-        for (width = 0; width < size ; width++) {
+        for (width = 0; width < sideSize ; width++) {
             matrix[0][width] = new Stones(Stones.Color.OUTOFBOARD);
-            matrix[size-1][width] = new Stones(Stones.Color.OUTOFBOARD);
+            matrix[sideSize-1][width] = new Stones(Stones.Color.OUTOFBOARD);
         }
 
     }
@@ -68,9 +68,9 @@ public class Goban implements I_Board {
     public void placeStone(Stones.Color color, int x, int y){
         setStone(color, x, y);
         ArrayList<IntPair> structureList = new ArrayList<>();
+        structureList.add(new IntPair(x,y));
         boolean isSuicide = checkIfSuicide(x,y,structureList);
         if (isSuicide) {
-            assert !(structureList.isEmpty());
             for (IntPair ip : structureList){
                 removeStone(ip.getPosVertical(), ip.getPosHorizontal());
             }
@@ -85,7 +85,6 @@ public class Goban implements I_Board {
      */
     public int getDegreeOfFreedomAndUpdateMap(int x, int y, ArrayList<IntPair> structureList){
         int degreeOfFreedom = 0;
-
         degreeOfFreedom = getDegreeOfFreedomAndUpdateMap(x, y, degreeOfFreedom, structureList);
         return degreeOfFreedom;
     }
