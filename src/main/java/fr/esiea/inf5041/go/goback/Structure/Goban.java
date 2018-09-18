@@ -67,13 +67,26 @@ public class Goban implements I_Board {
 
     public void placeStone(Stones.Color color, int x, int y){
         setStone(color, x, y);
-        ArrayList<IntPair> structureList = new ArrayList<>();
+        ArrayList<IntPair> structureList;
+        int degreeOfFreedom = 0;
+        for (Axis axis : Axis.values()){
+            structureList = new ArrayList<>();
+            int newX = x + axis.getVerticalDirection();
+            int newY = y + axis.getHoziontalDirection();
+            if (!matrix[newX][newY].isOutOfBoard()) {
+                degreeOfFreedom = getDegreeOfFreedomAndUpdateMap(newX, newY, structureList);
+                if (degreeOfFreedom == 0) {
+                    deleteStructure(structureList);
+                }
+            }
+        }
+
+        //We check if we suicide the current structure
+        structureList = new ArrayList<>();
         structureList.add(new IntPair(x,y));
         boolean isSuicide = checkIfSuicide(x,y,structureList);
         if (isSuicide) {
-            for (IntPair ip : structureList){
-                removeStone(ip.getPosVertical(), ip.getPosHorizontal());
-            }
+            deleteStructure(structureList);
         } //else nothing happens
     }
 
@@ -124,14 +137,17 @@ public class Goban implements I_Board {
      */
     private boolean checkIfSuicide(int x, int y, ArrayList<IntPair> structureList) {
         Stones.Color stoneColor = matrix[x][y].getColor();
-
-        //TODO Add test of deletion on nearby enemy structures
-
         int degreeOfFreedom = getDegreeOfFreedomAndUpdateMap(x,y, structureList);
         if (degreeOfFreedom>0){
             return false;
         }
         return true;
+    }
+
+    private void deleteStructure(List<IntPair> structureList) {
+        for (IntPair ip : structureList){
+            removeStone(ip.getPosVertical(), ip.getPosHorizontal());
+        }
     }
 
     /**

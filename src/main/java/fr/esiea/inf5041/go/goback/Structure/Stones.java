@@ -37,6 +37,14 @@ public class Stones implements I_Token {
     }
 
     /**
+     * Check whether we're on the border of the board
+     * @return True if border of the board
+     */
+    public boolean isOutOfBoard() {
+        return (this.color == Color.OUTOFBOARD);
+    }
+
+    /**
      *
      * @param nextColor
      * @throws IllegalArgumentException
