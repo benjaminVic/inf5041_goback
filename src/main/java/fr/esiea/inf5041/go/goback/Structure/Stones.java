@@ -41,12 +41,33 @@ public class Stones implements I_Token {
      * @param nextColor
      * @throws IllegalArgumentException
      */
-    public void changeColor(Stones.Color nextColor) throws IllegalArgumentException{
+    public void changeColor(Stones.Color nextColor) throws IllegalArgumentException {
         if (this.color == Stones.Color.EMPTY) {
             this.setColor(nextColor);
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Removes a stone from the board, effectively changing it's state to EMPTY
+     * @throws IllegalArgumentException
+     */
+    public void removeStone() throws IllegalArgumentException {
+        if (this.color == Color.WHITE
+                || this.color == Color.BLACK) {
+            this.setColor(Color.EMPTY);
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * String corresponding to the color of the stone
+     * @return String of 1 in length with the adapted char
+     */
+    public String toString(){
+        return String.valueOf(this.color.getBoardValue());
     }
 
     /**
