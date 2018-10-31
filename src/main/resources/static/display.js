@@ -73,3 +73,4 @@ board.addEventListener("click", function(x, y) {
         });
     }
 });
+
