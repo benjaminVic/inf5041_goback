@@ -7,29 +7,36 @@ public class GoVerify {
 
     private String state;
     private String color;
-    private String x;
-    private String y;
+    private int x;
+    private int y;
 
     public GoVerify() {
+        this.state = "nothing";
+        this.color = "nothing";
+        x = 1;
+        y = 1;
     }
 
-    public GoVerify(String color, String x, String y)
+    public GoVerify(String state, String color, int x, int y)
     {
+        this.state = state;
         this.color = color;
-        this.x = x;
+        this.x = x; //Because Javascript index starts at 1, whether Java starts at 0
         this.y = y;
 
     }
+
+    public String getState() { return state; }
 
     public String getColor() {
         return color;
     }
 
-    public String getX() {
+    public int getX() {
         return x;
     }
 
-    public String getY() {
+    public int getY() {
         return y;
     }
 }

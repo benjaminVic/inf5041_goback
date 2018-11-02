@@ -28,7 +28,11 @@ public class GetMove {
         if (color == "white")
             return I_Token.Color.WHITE;
         return I_Token.Color.EMPTY;
+    }
 
+    public String getStringColor()
+    {
+        return color;
     }
 
     public int getX() {

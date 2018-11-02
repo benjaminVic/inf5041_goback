@@ -31,9 +31,9 @@ public class RoomController {
     @SendTo("/response/clear")
     public GoClear begins(StartGame msg) throws Exception{
         if (msg.getStart() == 1) {
-            if (goTable == null)
-                goTable = new Goban(19);
-            goTable.removeAllStone();
+
+            goTable = new Goban(19);
+            //goTable.removeAllStone();
             return new GoClear("clear");
 
         }
@@ -44,9 +44,13 @@ public class RoomController {
 
     private SimpMessagingTemplate msgMove;
     @MessageMapping("/move")
-    @SendTo
+    @SendTo("/response/verify")
     public GoVerify verify(GetMove move) throws Exception{
-        goTable.placeStone(move.getColor(), move.getX(), move.getY());
+        if (goTable != null)
+        {
+            goTable.placeStone(move.getColor(), move.getX(), move.getY());
+            return new GoVerify("play", move.getStringColor(), move.getX(), move.getY());
+        }
         return new GoVerify();
     }
 }

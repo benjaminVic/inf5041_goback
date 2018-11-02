@@ -117,16 +117,7 @@ $(function() {
         change_serv();
     });
 
-    stompClient.subscribe('/response/verify', function (verif) {
-        jsonmsg = JSON.parse(verif.body);
-        if (jsonmsg.state == "play")
-            playMove(jsonmsg.color, jsonmsg.x, jsonmsg.y);
-    });
-    stompClient.subscribe('/response/clear', function(clear){
-       jsonmsg = JSON.parse(clear.body);
-       if (jsonmsg.clear == "clear")
-           board.removeAllObjects();
-    });
+
 
 
 });

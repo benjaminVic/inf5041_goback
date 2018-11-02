@@ -6,9 +6,11 @@ function setConnected(connected) {
     $("#start").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
+        $("#start").show();
     }
     else {
         $("#conversation").hide();
+        $("#start").hide();
     }
     $("#greetings").html("");
 }
@@ -22,7 +24,19 @@ function connect() {
         stompClient.subscribe('/response/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
+        stompClient.subscribe('/response/verify', function (verif) {
+            jsonmsg = JSON.parse(verif.body);
+            if (jsonmsg.state == "play")
+                playMove(jsonmsg.color, jsonmsg.x, jsonmsg.y);
+        });
+        stompClient.subscribe('/response/clear', function(clear){
+            jsonmsg = JSON.parse(clear.body);
+            if (jsonmsg.clear == "clear")
+                board.removeAllObjects();
+        });
     });
+
+
 }
 
 function disconnect() {
