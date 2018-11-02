@@ -9,3 +9,5 @@ Pour lancer les tests
 
 Ouvrez votre navigateur, et rendez-vous sur
     localhost:8080
+
+Un bouton No server permet de s'abolir du webservice, pour débugger la partie Front (dans le navigateur), ou pour simplement jouer en local.

@@ -1,3 +1,5 @@
+var no_serv = false;
+
 var board = new WGo.Board(document.getElementById("board"), {
     width: 600,
     section: {
@@ -50,13 +52,17 @@ board.addCustomObject(coordinates);
 
 board.addEventListener("click", function(x, y) {
 
-    stompClient.send("/query/move", {}, JSON.stringify(
-        {
-            'color': tool.value,
-            'x' : x,
-            'y' : y
-        }
-    ));
+    if (!no_serv) {
+        stompClient.send("/query/move", {}, JSON.stringify(
+            {
+                'color': tool.value,
+                'x': x,
+                'y': y
+            }
+        ));
+    }
+    else
+        playMove(tool.value, x, y);
 });
 
 
@@ -90,6 +96,12 @@ function sendStart()
     ));
 }
 
+function change_serv()
+{
+    no_serv = !no_serv;
+    $("#greetings").append("<tr><td>" + "Noserv : " + no_serv + "</td></tr>");
+}
+
 
 $(function() {
     $("form").on('submit', function (e) {
@@ -98,6 +110,11 @@ $(function() {
 
     $("#start").click(function() {
         sendStart();
+    });
+
+    //Used to get rid of the server side. Local playing.
+    $("#noserver").click(function(){
+        change_serv();
     });
 
     stompClient.subscribe('/response/verify', function (verif) {
