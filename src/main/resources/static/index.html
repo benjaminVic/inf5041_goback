@@ -2,9 +2,7 @@
 <html>
 <head>
     <title>GoBack</title>
-    <!-- WGo Javascripts -->
-    <script type="text/javascript" src="wgo/wgo.js"></script>
-    <script src="display.js"></script>
+
     <!-- Chat Javascripts -->
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
@@ -16,22 +14,24 @@
 
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
+    enabled. Please enable Javascript and reload this page!</h2></noscript>
 
 <!-- Go board -->
 <select id="tool" style="display: block; margin-bottom: 10px;">
     <option value="black" selected>Black stone</option>
     <option value="white">White stone</option>
-    <option value="SQ">Square</option>
-    <option value="TR">Triangle</option>
-    <option value="CR">Circle</option>
     <option value="remove">Remove</option>
 </select>
 <div id="board"></div>
+<div id="option-game" class="container">
+    <div class="row">
+        <div class="form-group">
+            <button id="start" class="btn btn-default" type="submit">Start game</button>
+        </div>
+    </div>
+</div>
 
 <!-- chat function -->
-
 <div id="main-content" class="container">
     <div class="row">
         <div class="col-md-6">
@@ -69,5 +69,8 @@
     </div>
 </div>
 
+<!-- WGo Javascripts -->
+<script type="text/javascript" src="wgo/wgo.js"></script>
+<script src="display.js"></script>
 </body>
 </html>

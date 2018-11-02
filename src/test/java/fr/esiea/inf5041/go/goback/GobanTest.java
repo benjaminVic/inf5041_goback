@@ -1,8 +1,7 @@
 package fr.esiea.inf5041.go.goback;
 
-import fr.esiea.inf5041.go.goback.Structure.Goban;
-import fr.esiea.inf5041.go.goback.Structure.I_Token;
-import fr.esiea.inf5041.go.goback.Structure.Stones;
+import fr.esiea.inf5041.go.goback.structure.Goban;
+import fr.esiea.inf5041.go.goback.structure.Stones;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,0 +1,11 @@
+Jeu de Go via webservices
+
+Pour lancer la compilation
+    mvn compile
+Pour lancer l'application
+    mvn spring-boot:run
+Pour lancer les tests
+    mvn test
+
+Ouvrez votre navigateur, et rendez-vous sur
+    localhost:8080

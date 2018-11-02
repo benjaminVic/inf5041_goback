@@ -1,4 +1,4 @@
-package fr.esiea.inf5041.go.goback.Structure;
+package fr.esiea.inf5041.go.goback.structure;
 
 public interface I_Token {
 

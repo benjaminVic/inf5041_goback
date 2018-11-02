@@ -1,4 +1,4 @@
-package fr.esiea.inf5041.go.goback.Structure;
+package fr.esiea.inf5041.go.goback.structure;
 
 public class Stones implements I_Token {
 

@@ -1,4 +1,4 @@
-package fr.esiea.inf5041.go.goback.chat;
+package fr.esiea.inf5041.go.goback.room;
 
 public class HelloMessage {
 

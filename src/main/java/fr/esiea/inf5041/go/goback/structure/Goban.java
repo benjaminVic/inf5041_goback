@@ -1,7 +1,6 @@
-package fr.esiea.inf5041.go.goback.Structure;
+package fr.esiea.inf5041.go.goback.structure;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Goban implements I_Board {
@@ -33,20 +32,20 @@ public class Goban implements I_Board {
     }
 
     private final int sideSize;
-    private final int borderLenght = 1;
+    private final int borderLength = 1;
     private Stones matrix[][];
 
     /**
      * Builds a Goban
-     * @param size : Lenght of the sides of the board
+     * @param size : Length of the sides of the board
      */
     public Goban (int size) {
-        this.sideSize = size+borderLenght+borderLenght;
+        this.sideSize = size+borderLength+borderLength;
         matrix = new Stones[sideSize][sideSize];
         int length = 0;
         int width = 0;
-        for (length = borderLenght ; length < (sideSize - borderLenght) ; length++) {
-            for (width = borderLenght ; width < (sideSize - borderLenght) ; width++) {
+        for (length = borderLength ; length < (sideSize - borderLength) ; length++) {
+            for (width = borderLength ; width < (sideSize - borderLength) ; width++) {
                 matrix[length][width] = new Stones(Stones.Color.EMPTY);
             }
         }
@@ -172,6 +171,13 @@ public class Goban implements I_Board {
 
     private void removeStone(int x, int y) throws  IllegalArgumentException {
         this.matrix[x][y].removeStone();
+    }
+
+    public void removeAllStone()
+    {
+        for (int i = 0; i < matrix.length; i++)
+            for (int j = 0; j < matrix.length; j++)
+                this.matrix[i][j].removeStone();
     }
 
     /**

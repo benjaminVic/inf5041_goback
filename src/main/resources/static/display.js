@@ -7,6 +7,7 @@ var board = new WGo.Board(document.getElementById("board"), {
         bottom: -0.5
     }
 });
+
 var tool = document.getElementById("tool"); // get the &lt;select&gt; element
 
 
@@ -48,14 +49,27 @@ var coordinates = {
 board.addCustomObject(coordinates);
 
 board.addEventListener("click", function(x, y) {
-    if(tool.value == "black") {
+
+    stompClient.send("/query/move", {}, JSON.stringify(
+        {
+            'color': tool.value,
+            'x' : x,
+            'y' : y
+        }
+    ));
+});
+
+
+function playMove(color, x, y)
+{
+    if(color == "black") {
         board.addObject({
             x: x,
             y: y,
             c: WGo.B
         });
     }
-    else if(tool.value == "white") {
+    else if(color == "white") {
         board.addObject({
             x: x,
             y: y,
@@ -65,12 +79,33 @@ board.addEventListener("click", function(x, y) {
     else if(tool.value == "remove") {
         board.removeObjectsAt(x, y);
     }
-    else {
-        board.addObject({
-            x: x,
-            y: y,
-            type: tool.value
-        });
-    }
-});
+};
 
+function sendStart()
+{
+    stompClient.send("/query/begin", {}, JSON.stringify(
+        {
+            'start' : 1
+        }
+    ));
+}
+
+
+$(function() {
+    $("form").on('submit', function (e) {
+        e.preventDefault();
+    });
+
+    stompClient.subscribe('/response/verify', function (verif) {
+        jsonmsg = JSON.parse(verif.body);
+        if (jsonmsg.state == "play")
+            playMove(jsonmsg.color, jsonmsg.x, jsonmsg.y);
+    });
+    stompClient.subscribe('/response/clear', function(clear){
+       jsonmsg = JSON.parse(clear.body);
+       if (jsonmsg.clear == "clear")
+           board.removeAllObjects();
+    });
+
+    $( "#start" ).click(function() { sendStart(); });
+});
