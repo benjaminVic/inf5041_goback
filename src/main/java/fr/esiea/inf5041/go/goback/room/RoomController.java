@@ -33,8 +33,10 @@ public class RoomController {
         if (msg.getStart() == 1) {
             if (goTable == null)
                 goTable = new Goban(19);
-            goTable.removeAllStone();
-            return new GoClear("clear");
+            else {
+                goTable.removeAllStone();
+                return new GoClear("clear");
+            }
         }
         return new GoClear();
     }

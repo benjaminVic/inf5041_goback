@@ -96,6 +96,10 @@ $(function() {
         e.preventDefault();
     });
 
+    $("#start").click(function() {
+        sendStart();
+    });
+
     stompClient.subscribe('/response/verify', function (verif) {
         jsonmsg = JSON.parse(verif.body);
         if (jsonmsg.state == "play")
@@ -107,5 +111,5 @@ $(function() {
            board.removeAllObjects();
     });
 
-    $( "#start" ).click(function() { sendStart(); });
+
 });
